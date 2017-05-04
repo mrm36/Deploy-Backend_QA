@@ -27,7 +27,7 @@ function requestProcessor($request)
   }
 }
 
-$server = new rabbitMQServer("deployRabbitServer.ini","deployServer");
+$server = new rabbitMQServer("deployRabbitServer.ini","backendQA");
 
 $server->process_requests('requestProcessor');
 exit();
