@@ -1,16 +1,19 @@
 echo "Unzipping Package... ;)"
 # Getting current package Number
 packageNum=`php currentPackage.php | xargs`
+mkdir $HOME/Packages/temp/
+mkdir $HOME/Desktop/GoliathBackendServer
 
-tar -xzf $HOME/Packages/backendPackage-v"$packageNum".tar.gz -C $HOME/Packages
+tar -xzf $HOME/Packages/backendPackage-v"$packageNum".tar.gz -C $HOME/Packages/temp/
 
 echo "Copying SQL Data..."
 echo "Enter MySQL  Password?..."
-	mysql -u root -p login < $HOME/Packages/backendPackage-v"$packageNum"/mySqlData/backup_sql.sql
+	mysql -u root -p login < $HOME/Packages/temp/mySqlData/backup_sql.sql
 
-mkdir $HOME/Desktop/GoliathBackendServer
 	echo "Installing backend.. how exciting -_-"
-	mv $HOME/Packages/backendPackage-v"$packageNum"/it1490_backend_final $HOME/Desktop/GoliathBackend/
-
+	cp -a -v $HOME/Packages/temp/it490_backend_final/* $HOME/Desktop/GoliathBackendServer/
+echo "Adjusting RabbitMQ .ini..."
+	sed -i '2s/.*/BROKER_HOST = 192.168.2.20/g' $HOME/Desktop/GoliathBackendServer/testRabbitMQ.ini
+	sed -i '2s/.*/BROKER_HOST = 192.168.2.20/g' $HOME/Desktop/GoliathBackendServer/apiRabbitMQ.ini
 echo "Backend Package Sucessfully Installed!"
 
