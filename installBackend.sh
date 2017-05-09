@@ -1,10 +1,10 @@
 echo "Unzipping Package... ;)"
 # Getting current package Number
-packageNum=`php currentPackage.php | xargs`
+package="$1"
 mkdir $HOME/Packages/temp/
 mkdir $HOME/Desktop/GoliathBackendServer
 
-tar -xzf $HOME/Packages/backendPackage-v"$packageNum".tar.gz -C $HOME/Packages/temp/
+tar -xzf $HOME/Packages/$package -C $HOME/Packages/temp/
 
 echo "Copying SQL Data..."
 echo "Enter MySQL  Password?..."
